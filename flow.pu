@@ -1,0 +1,17 @@
+@startuml
+
+' Define actors
+actor Developer
+actor Bitbucket
+actor SonarQube
+actor IncludeCodeQuality
+
+' Define processes
+Developer -> Bitbucket: New code changes\n(push or pull request)
+Bitbucket -> Bitbucket: Trigger build pipeline
+Bitbucket -> SonarQube: Trigger Sonar analysis
+SonarQube -> SonarQube: Execute SonarScanner\nor alternative
+SonarQube -> IncludeCodeQuality: Inform about\nnew analysis report via webhook
+IncludeCodeQuality -> Bitbucket: Annotate pull requests\nwith issues found
+
+@enduml
